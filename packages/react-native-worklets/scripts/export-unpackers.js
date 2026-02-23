@@ -92,19 +92,19 @@ function exportToCpp(sourceFilePath, outputFilename) {
       `../Common/cpp/worklets/Resources/${outputFilename}.cpp`
     ),
     `// This file was generated with
-  // \`packages/react-native-worklets/scripts/export-unpackers.js\`.
-  // Please do not modify it directly.
+// \`packages/react-native-worklets/scripts/export-unpackers.js\`.
+// Please do not modify it directly.
 
-  #include <worklets/Resources/Unpackers.h>
+#include <worklets/Resources/Unpackers.h>
 
-  namespace worklets {
+namespace worklets {
 
-  const char ${cstrName}[] =
-      R"${delimiter}(` +
+const char ${cstrName}[] =
+    R"${delimiter}(` +
       transformFrom.code +
       `)${delimiter}";
-  } // namespace worklets
-  `,
+} // namespace worklets
+`,
     'utf8'
   );
 
