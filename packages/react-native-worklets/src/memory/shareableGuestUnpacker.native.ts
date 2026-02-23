@@ -31,7 +31,10 @@ export function __installUnpacker() {
       ? createSerializable
       : (value: unknown) => globalThis.__serializer(value);
 
-  if (globalThis.__RUNTIME_KIND === 1 /* RuntimeKind.ReactNative */) {
+  if (
+    globalThis.__RUNTIME_KIND === 1 /* RuntimeKind.ReactNative */ ||
+    globalThis._WORKLETS_BUNDLE_MODE_ENABLED
+  ) {
     runOnRuntimeSyncFromId = RNRuntimeRunOnRuntimeSyncFromId;
     scheduleOnRuntimeFromId = RNRuntimeScheduleOnRuntimeFromId;
     runOnUIAsync = RNRuntimeRunOnUIAsync;
@@ -47,9 +50,7 @@ export function __installUnpacker() {
     ) => {
       const serializedWorklet = serializer(() => {
         'worklet';
-        return globalThis.__makeSerializableCloneOnUIRecursive(
-          worklet(...args)
-        );
+        return globalThis.__serializer(worklet(...args));
       });
       return proxy.runOnRuntimeSyncFromId(hostId, serializedWorklet);
     }) as typeof RNRuntimeRunOnRuntimeSyncFromId;

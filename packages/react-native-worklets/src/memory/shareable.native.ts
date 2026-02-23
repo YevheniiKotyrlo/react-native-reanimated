@@ -66,7 +66,6 @@ export function createShareable<TShared = unknown>(
     createSerializable(guestDecorator)
   );
 
-  // const isHost = getRuntimeKind() === RuntimeKind.UI;
   if (getRuntimeKind() === RuntimeKind.UI) {
     return globalThis.__shareableHostUnpacker(
       initial,

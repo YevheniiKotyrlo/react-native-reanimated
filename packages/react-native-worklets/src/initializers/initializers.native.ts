@@ -189,9 +189,6 @@ function installRNBindingsOnUIRuntime() {
 
     /** In Bundle Mode the error is taken from the bundle. */
     runOnUISync(registerWorkletsError);
-
-    /** In Bundle Mode the serializer is taken from the bundle. */
-    runOnUISync(setupSerializer);
   }
 
   const runtimeBoundCapturableConsole = getMemorySafeCapturableConsole();
@@ -210,7 +207,6 @@ function installRNBindingsOnUIRuntime() {
     setupSetTimeout();
     setupSetImmediate();
     setupSetInterval();
-    globalThis.__makeSerializableCloneOnUIRecursive =
-      makeShareableCloneOnUIRecursive;
+    setupSerializer();
   });
 }

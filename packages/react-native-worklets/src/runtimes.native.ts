@@ -97,11 +97,10 @@ export function createWorkletRuntime(
       setupSerializer();
       registerWorkletsError();
       setupConsole(runtimeBoundCapturableConsole);
+      setupSerializer();
       if (enableEventLoop) {
         setupRunLoop(animationQueuePollingRate);
       }
-      globalThis.__makeSerializableCloneOnUIRecursive =
-        makeShareableCloneOnUIRecursive;
       initializerFn?.();
     }),
     useDefaultQueue,
