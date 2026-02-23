@@ -27,6 +27,7 @@ export {
   getStaticFeatureFlag,
   setDynamicFeatureFlag,
 } from './featureFlags/featureFlags';
+export { isShareable } from './memory/isShareable';
 export { isSynchronizable } from './memory/isSynchronizable';
 export {
   createSerializable,
@@ -37,9 +38,15 @@ export { serializableMappingCache } from './memory/serializableMappingCache';
 export { createShareable } from './memory/shareable';
 export { createSynchronizable } from './memory/synchronizable';
 export type {
+  PureShareableGuest,
+  PureShareableHost,
   RegistrationData,
   SerializableRef,
   Shareable,
+  ShareableGuest,
+  ShareableGuestDecorator,
+  ShareableHost,
+  ShareableHostDecorator,
   Synchronizable,
   SynchronizableRef,
 } from './memory/types';

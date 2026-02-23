@@ -86,8 +86,16 @@ declare global {
   var __hasNativeState: (value: object) => boolean;
   /** Only in Debug builds. */
   var __isHostObject: (value: object) => boolean;
-  var __shareableHostUnpacker: ShareableHostUnpacker;
-  var __shareableGuestUnpacker: ShareableGuestUnpacker;
+  var __shareableHostUnpacker: ShareableHostUnpacker<
+    TValue,
+    THostDecorated,
+    TGuestDecorated
+  >;
+  var __shareableGuestUnpacker: ShareableGuestUnpacker<
+    TValue,
+    THostDecorated,
+    TGuestDecorated
+  >;
   var __makeSerializableCloneOnUIRecursive: <TValue>(
     value: TValue
   ) => SerializableRef<TValue>;

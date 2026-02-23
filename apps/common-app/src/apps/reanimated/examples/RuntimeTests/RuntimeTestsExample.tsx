@@ -44,6 +44,7 @@ export default function RuntimeTestsExample() {
         {
           testSuiteName: 'memory',
           importTest: () => {
+            require('./tests/memory/shareable.test');
             require('./tests/memory/createSerializable.test');
             require('./tests/memory/createSerializableOnUI.test');
             require('./tests/memory/isSerializableRef.test');

@@ -8,13 +8,13 @@ import {
 import { runOnUIAsync as RNRuntimeRunOnUIAsync } from '../threads';
 import type { WorkletFunction } from '../types';
 import { createSerializable } from './serializable';
-// import { createSerializable } from './serializable';
 import { serializableMappingCache } from './serializableMappingCache';
 import type {
-  // PureShareableGuest,
   SerializableRef,
   Shareable,
+  ShareableGuest,
   ShareableGuestDecorator,
+  ShareableGuestMeta,
   ShareableHost,
 } from './types';
 
@@ -76,7 +76,7 @@ export function __installUnpacker() {
     };
 
     memoize = () => {
-      // No-op on Worklet Runtimes.
+      // No-op on Worklet Runtimes outside of Bundle Mode.
     };
   }
 
@@ -87,86 +87,74 @@ export function __installUnpacker() {
    * @param initial - Initial value to use when running on the Host Runtime
    *   side. Undefined on the Ref Runtime side.
    */
-  function shareableGuestUnpacker<TShared = unknown>(
+  function shareableGuestUnpacker<TValue>(
     hostId: number,
-    shareableRef: SerializableRef<TShared> | Shareable<TShared>,
-    guestDecorator?: ShareableGuestDecorator<TShared>
-  ): Shareable<TShared> {
-    type HostRuntimeType = ShareableHost<TShared>;
-    // type RefRuntimeType = SerializableRef<TShared>;
+    shareableRef: SerializableRef<TValue>,
+    guestDecorator?: ShareableGuestDecorator<TValue>
+  ): Shareable<TValue> {
+    type HostRuntimeType = ShareableHost<TValue>;
+
+    let shareableGuest = shareableRef as unknown as ShareableGuest<TValue> &
+      ShareableGuestMeta;
 
     const get = () => {
       'worklet';
-      console.log('Getting shareable value from guest unpacker', shareableRef);
-      return (shareableRef as HostRuntimeType).value;
+      return (shareableGuest as HostRuntimeType).value;
     };
 
-    const setWithValue = (value: TShared) => {
+    const setWithValue = (value: TValue) => {
       'worklet';
-      (shareableRef as HostRuntimeType).value = value;
+      (shareableGuest as HostRuntimeType).value = value;
     };
 
-    const setWithSetter = (setter: (prev: TShared) => TShared) => {
+    const setWithSetter = (setter: (prev: TValue) => TValue) => {
       'worklet';
-      const currentValue = (shareableRef as HostRuntimeType).value;
+      const currentValue = (shareableGuest as HostRuntimeType).value;
       const newValue = setter(currentValue);
-      (shareableRef as HostRuntimeType).value = newValue;
+      (shareableGuest as HostRuntimeType).value = newValue;
     };
 
-    // @ts-expect-error wwww
-    shareableRef.getAsync = () => {
+    shareableGuest.getAsync = () => {
       return runOnUIAsync(get);
     };
 
-    // @ts-expect-error wwww
-    shareableRef.getSync = () => {
+    shareableGuest.getSync = () => {
       return runOnRuntimeSyncFromId(hostId, get);
     };
 
-    // @ts-expect-error wwww
-    shareableRef.setAsync = (value: TShared | ((prev: TShared) => TShared)) => {
+    shareableGuest.setAsync = (value: TValue | ((prev: TValue) => TValue)) => {
       if (typeof value === 'function') {
         scheduleOnRuntimeFromId(
           hostId,
           setWithSetter,
-          value as (prev: TShared) => TShared
+          value as (prev: TValue) => TValue
         );
       } else {
         scheduleOnRuntimeFromId(hostId, setWithValue, value);
       }
     };
 
-    // @ts-expect-error wwww
-    shareableRef.setSync = (value: TShared | ((prev: TShared) => TShared)) => {
+    shareableGuest.setSync = (value: TValue | ((prev: TValue) => TValue)) => {
       if (typeof value === 'function') {
         runOnRuntimeSyncFromId(
           hostId,
           setWithSetter,
-          value as (prev: TShared) => TShared
+          value as (prev: TValue) => TValue
         );
       } else {
         runOnRuntimeSyncFromId(hostId, setWithValue, value);
       }
     };
 
-    // @ts-expect-error wwww
-    shareableRef.isHost = false;
+    shareableGuest.isHost = false;
+    shareableGuest.__shareableRef = true;
 
-    // if (guestDecorator) {
-    //   shareableGuest = guestDecorator(shareableGuest);
-    // }
     if (guestDecorator) {
-      // @ts-expect-error wwww
-      shareableRef = guestDecorator(shareableRef);
+      shareableGuest = guestDecorator(shareableGuest);
     }
 
-    // const shareable = shareableGuest;
-
-    // @ts-expect-error wwwww
-    memoize(shareableRef, shareableRef);
-    // memoize(shareableRef, shareableRef as RefRuntimeType);
-    // @ts-expect-error www
-    return shareableRef;
+    memoize(shareableGuest, shareableRef);
+    return shareableGuest;
   }
 
   globalThis.__shareableGuestUnpacker = shareableGuestUnpacker;

@@ -15,7 +15,7 @@ const char ShareableGuestUnpackerCode[] =
   var serializer = globalThis.__RUNTIME_KIND === 1 || globalThis._WORKLETS_BUNDLE_MODE_ENABLED ? createSerializable : function (value) {
     return globalThis.__serializer(value);
   };
-  if (globalThis.__RUNTIME_KIND === 1) {
+  if (globalThis.__RUNTIME_KIND === 1 || globalThis._WORKLETS_BUNDLE_MODE_ENABLED) {
     runOnRuntimeSyncFromId = RNRuntimeRunOnRuntimeSyncFromId;
     scheduleOnRuntimeFromId = RNRuntimeScheduleOnRuntimeFromId;
     runOnUIAsync = RNRuntimeRunOnUIAsync;
@@ -25,33 +25,33 @@ const char ShareableGuestUnpackerCode[] =
   } else {
     var proxy = globalThis.__workletsModuleProxy;
     runOnRuntimeSyncFromId = function runOnRuntimeSyncFromId(hostId, worklet) {
-      const _worklet_1296144845132_init_data = {
-        code: "function shareableGuestUnpackerNativeTs1(){const{worklet,args}=this.__closure;return globalThis.__makeSerializableCloneOnUIRecursive(worklet(...args));}",
+      const _worklet_15370944365151_init_data = {
+        code: "function shareableGuestUnpackerNativeTs1(){const{worklet,args}=this.__closure;return globalThis.__serializer(worklet(...args));}",
         location: "/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts",
-        sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs1\",\"worklet\",\"args\",\"__closure\",\"globalThis\",\"__makeSerializableCloneOnUIRecursive\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AA+C2C,SAAAA,+BAAMA,CAAA,QAAAC,OAAA,CAAAC,IAAA,OAAAC,SAAA,CAEzC,MAAO,CAAAC,UAAU,CAACC,oCAAoC,CACpDJ,OAAO,CAAC,GAAGC,IAAI,CACjB,CAAC,CACH\",\"ignoreList\":[]}"
+        sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs1\",\"worklet\",\"args\",\"__closure\",\"globalThis\",\"__serializer\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AAkD2C,SAAAA,+BAAMA,CAAA,QAAAC,OAAA,CAAAC,IAAA,OAAAC,SAAA,CAEzC,MAAO,CAAAC,UAAU,CAACC,YAAY,CAACJ,OAAO,CAAC,GAAGC,IAAI,CAAC,CAAC,CAClD\",\"ignoreList\":[]}"
       };
       for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
         args[_key - 2] = arguments[_key];
       }
       var serializedWorklet = serializer(function shareableGuestUnpackerNativeTs1Factory(_ref) {
-        var _worklet_1296144845132_init_data = _ref._worklet_1296144845132_init_data,
+        var _worklet_15370944365151_init_data = _ref._worklet_15370944365151_init_data,
           worklet = _ref.worklet,
           args = _ref.args;
         var _e = [new global.Error(), -3, -27];
         var shareableGuestUnpackerNativeTs1 = function shareableGuestUnpackerNativeTs1() {
-          return globalThis.__makeSerializableCloneOnUIRecursive(worklet.apply(void 0, _toConsumableArray(args)));
+          return globalThis.__serializer(worklet.apply(void 0, _toConsumableArray(args)));
         };
         shareableGuestUnpackerNativeTs1.__closure = {
           worklet: worklet,
           args: args
         };
-        shareableGuestUnpackerNativeTs1.__workletHash = 1296144845132;
+        shareableGuestUnpackerNativeTs1.__workletHash = 15370944365151;
         shareableGuestUnpackerNativeTs1.__pluginVersion = "0.8.0-main";
-        shareableGuestUnpackerNativeTs1.__initData = _worklet_1296144845132_init_data;
+        shareableGuestUnpackerNativeTs1.__initData = _worklet_15370944365151_init_data;
         shareableGuestUnpackerNativeTs1.__stackDetails = _e;
         return shareableGuestUnpackerNativeTs1;
       }({
-        _worklet_1296144845132_init_data: _worklet_1296144845132_init_data,
+        _worklet_15370944365151_init_data: _worklet_15370944365151_init_data,
         worklet: worklet,
         args: args
       }));
@@ -61,7 +61,7 @@ const char ShareableGuestUnpackerCode[] =
       const _worklet_15899435822716_init_data = {
         code: "function shareableGuestUnpackerNativeTs2(){const{worklet,args}=this.__closure;return globalThis.__serializer(worklet(...args));}",
         location: "/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts",
-        sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs2\",\"worklet\",\"args\",\"__closure\",\"globalThis\",\"__serializer\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AA+DmB,SAAAA,+BAAMA,CAAA,QAAAC,OAAA,CAAAC,IAAA,OAAAC,SAAA,CAEf,MAAO,CAAAC,UAAU,CAACC,YAAY,CAACJ,OAAO,CAAC,GAAGC,IAAI,CAAC,CAAC,CAClD\",\"ignoreList\":[]}"
+        sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs2\",\"worklet\",\"args\",\"__closure\",\"globalThis\",\"__serializer\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AAgEmB,SAAAA,+BAAMA,CAAA,QAAAC,OAAA,CAAAC,IAAA,OAAAC,SAAA,CAEf,MAAO,CAAAC,UAAU,CAACC,YAAY,CAACJ,OAAO,CAAC,GAAGC,IAAI,CAAC,CAAC,CAClD\",\"ignoreList\":[]}"
       };
       for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
         args[_key2 - 2] = arguments[_key2];
@@ -95,107 +95,108 @@ const char ShareableGuestUnpackerCode[] =
     memoize = function memoize() {};
   }
   function shareableGuestUnpacker(hostId, shareableRef, guestDecorator) {
-    const _worklet_2037730408222_init_data = {
-      code: "function shareableGuestUnpackerNativeTs5(setter){const{shareableRef}=this.__closure;const currentValue=shareableRef.value;const newValue=setter(currentValue);shareableRef.value=newValue;}",
+    const _worklet_12483657757151_init_data = {
+      code: "function shareableGuestUnpackerNativeTs5(setter){const{shareableGuest}=this.__closure;const currentValue=shareableGuest.value;const newValue=setter(currentValue);shareableGuest.value=newValue;}",
       location: "/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts",
-      sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs5\",\"setter\",\"shareableRef\",\"__closure\",\"currentValue\",\"value\",\"newValue\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AA2G0B,QAAC,CAAAA,+BAAuCA,CAAAC,MAAA,QAAAC,YAAA,OAAAC,SAAA,CAE5D,KAAM,CAAAC,YAAY,CAAIF,YAAY,CAAqBG,KAAK,CAC5D,KAAM,CAAAC,QAAQ,CAAGL,MAAM,CAACG,YAAY,CAAC,CACpCF,YAAY,CAAqBG,KAAK,CAAGC,QAAQ,CACpD\",\"ignoreList\":[]}"
+      sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs5\",\"setter\",\"shareableGuest\",\"__closure\",\"currentValue\",\"value\",\"newValue\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AA6G0B,QAAC,CAAAA,+BAAqCA,CAAAC,MAAA,QAAAC,cAAA,OAAAC,SAAA,CAE1D,KAAM,CAAAC,YAAY,CAAIF,cAAc,CAAqBG,KAAK,CAC9D,KAAM,CAAAC,QAAQ,CAAGL,MAAM,CAACG,YAAY,CAAC,CACpCF,cAAc,CAAqBG,KAAK,CAAGC,QAAQ,CACtD\",\"ignoreList\":[]}"
     };
-    const _worklet_1356596310573_init_data = {
-      code: "function shareableGuestUnpackerNativeTs4(value){const{shareableRef}=this.__closure;shareableRef.value=value;}",
+    const _worklet_894099936717_init_data = {
+      code: "function shareableGuestUnpackerNativeTs4(value){const{shareableGuest}=this.__closure;shareableGuest.value=value;}",
       location: "/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts",
-      sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs4\",\"value\",\"shareableRef\",\"__closure\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AAsGyB,QAAC,CAAAA,+BAAmBA,CAAAC,KAAA,QAAAC,YAAA,OAAAC,SAAA,CAEtCD,YAAY,CAAqBD,KAAK,CAAGA,KAAK,CACjD\",\"ignoreList\":[]}"
+      sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs4\",\"value\",\"shareableGuest\",\"__closure\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AAwGyB,QAAC,CAAAA,+BAAkBA,CAAAC,KAAA,QAAAC,cAAA,OAAAC,SAAA,CAErCD,cAAc,CAAqBD,KAAK,CAAGA,KAAK,CACnD\",\"ignoreList\":[]}"
     };
-    const _worklet_10735422963101_init_data = {
-      code: "function shareableGuestUnpackerNativeTs3(){const{shareableRef}=this.__closure;console.log('Getting shareable value from guest unpacker',shareableRef);return shareableRef.value;}",
+    const _worklet_6656248753821_init_data = {
+      code: "function shareableGuestUnpackerNativeTs3(){const{shareableGuest}=this.__closure;return shareableGuest.value;}",
       location: "/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts",
-      sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs3\",\"shareableRef\",\"__closure\",\"console\",\"log\",\"value\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AAgGgB,SAAAA,+BAAMA,CAAA,QAAAC,YAAA,OAAAC,SAAA,CAEhBC,OAAO,CAACC,GAAG,CAAC,6CAA6C,CAAEH,YAAY,CAAC,CACxE,MAAQ,CAAAA,YAAY,CAAqBI,KAAK,CAChD\",\"ignoreList\":[]}"
+      sourceMap: "{\"version\":3,\"names\":[\"shareableGuestUnpackerNativeTs3\",\"shareableGuest\",\"__closure\",\"value\"],\"sources\":[\"/Users/bigpoppe/swmansion/reanimated/primary/packages/react-native-worklets/src/memory/shareableGuestUnpacker.native.ts\"],\"mappings\":\"AAmGgB,SAAAA,+BAAMA,CAAA,QAAAC,cAAA,OAAAC,SAAA,CAEhB,MAAQ,CAAAD,cAAc,CAAqBE,KAAK,CAClD\",\"ignoreList\":[]}"
     };
+    var shareableGuest = shareableRef;
     var get = function shareableGuestUnpackerNativeTs3Factory(_ref3) {
-      var _worklet_10735422963101_init_data = _ref3._worklet_10735422963101_init_data,
-        shareableRef = _ref3.shareableRef;
+      var _worklet_6656248753821_init_data = _ref3._worklet_6656248753821_init_data,
+        shareableGuest = _ref3.shareableGuest;
       var _e = [new global.Error(), -2, -27];
       var shareableGuestUnpackerNativeTs3 = function shareableGuestUnpackerNativeTs3() {
-        console.log('Getting shareable value from guest unpacker', shareableRef);
-        return shareableRef.value;
+        return shareableGuest.value;
       };
       shareableGuestUnpackerNativeTs3.__closure = {
-        shareableRef: shareableRef
+        shareableGuest: shareableGuest
       };
-      shareableGuestUnpackerNativeTs3.__workletHash = 10735422963101;
+      shareableGuestUnpackerNativeTs3.__workletHash = 6656248753821;
       shareableGuestUnpackerNativeTs3.__pluginVersion = "0.8.0-main";
-      shareableGuestUnpackerNativeTs3.__initData = _worklet_10735422963101_init_data;
+      shareableGuestUnpackerNativeTs3.__initData = _worklet_6656248753821_init_data;
       shareableGuestUnpackerNativeTs3.__stackDetails = _e;
       return shareableGuestUnpackerNativeTs3;
     }({
-      _worklet_10735422963101_init_data: _worklet_10735422963101_init_data,
-      shareableRef: shareableRef
+      _worklet_6656248753821_init_data: _worklet_6656248753821_init_data,
+      shareableGuest: shareableGuest
     });
     var setWithValue = function shareableGuestUnpackerNativeTs4Factory(_ref4) {
-      var _worklet_1356596310573_init_data = _ref4._worklet_1356596310573_init_data,
-        shareableRef = _ref4.shareableRef;
+      var _worklet_894099936717_init_data = _ref4._worklet_894099936717_init_data,
+        shareableGuest = _ref4.shareableGuest;
       var _e = [new global.Error(), -2, -27];
       var shareableGuestUnpackerNativeTs4 = function shareableGuestUnpackerNativeTs4(value) {
-        shareableRef.value = value;
+        shareableGuest.value = value;
       };
       shareableGuestUnpackerNativeTs4.__closure = {
-        shareableRef: shareableRef
+        shareableGuest: shareableGuest
       };
-      shareableGuestUnpackerNativeTs4.__workletHash = 1356596310573;
+      shareableGuestUnpackerNativeTs4.__workletHash = 894099936717;
       shareableGuestUnpackerNativeTs4.__pluginVersion = "0.8.0-main";
-      shareableGuestUnpackerNativeTs4.__initData = _worklet_1356596310573_init_data;
+      shareableGuestUnpackerNativeTs4.__initData = _worklet_894099936717_init_data;
       shareableGuestUnpackerNativeTs4.__stackDetails = _e;
       return shareableGuestUnpackerNativeTs4;
     }({
-      _worklet_1356596310573_init_data: _worklet_1356596310573_init_data,
-      shareableRef: shareableRef
+      _worklet_894099936717_init_data: _worklet_894099936717_init_data,
+      shareableGuest: shareableGuest
     });
     var setWithSetter = function shareableGuestUnpackerNativeTs5Factory(_ref5) {
-      var _worklet_2037730408222_init_data = _ref5._worklet_2037730408222_init_data,
-        shareableRef = _ref5.shareableRef;
+      var _worklet_12483657757151_init_data = _ref5._worklet_12483657757151_init_data,
+        shareableGuest = _ref5.shareableGuest;
       var _e = [new global.Error(), -2, -27];
       var shareableGuestUnpackerNativeTs5 = function shareableGuestUnpackerNativeTs5(setter) {
-        var currentValue = shareableRef.value;
+        var currentValue = shareableGuest.value;
         var newValue = setter(currentValue);
-        shareableRef.value = newValue;
+        shareableGuest.value = newValue;
       };
       shareableGuestUnpackerNativeTs5.__closure = {
-        shareableRef: shareableRef
+        shareableGuest: shareableGuest
       };
-      shareableGuestUnpackerNativeTs5.__workletHash = 2037730408222;
+      shareableGuestUnpackerNativeTs5.__workletHash = 12483657757151;
       shareableGuestUnpackerNativeTs5.__pluginVersion = "0.8.0-main";
-      shareableGuestUnpackerNativeTs5.__initData = _worklet_2037730408222_init_data;
+      shareableGuestUnpackerNativeTs5.__initData = _worklet_12483657757151_init_data;
       shareableGuestUnpackerNativeTs5.__stackDetails = _e;
       return shareableGuestUnpackerNativeTs5;
     }({
-      _worklet_2037730408222_init_data: _worklet_2037730408222_init_data,
-      shareableRef: shareableRef
+      _worklet_12483657757151_init_data: _worklet_12483657757151_init_data,
+      shareableGuest: shareableGuest
     });
-    shareableRef.getAsync = function () {
+    shareableGuest.getAsync = function () {
       return runOnUIAsync(get);
     };
-    shareableRef.getSync = function () {
+    shareableGuest.getSync = function () {
       return runOnRuntimeSyncFromId(hostId, get);
     };
-    shareableRef.setAsync = function (value) {
+    shareableGuest.setAsync = function (value) {
       if (typeof value === 'function') {
         scheduleOnRuntimeFromId(hostId, setWithSetter, value);
       } else {
         scheduleOnRuntimeFromId(hostId, setWithValue, value);
       }
     };
-    shareableRef.setSync = function (value) {
+    shareableGuest.setSync = function (value) {
       if (typeof value === 'function') {
         runOnRuntimeSyncFromId(hostId, setWithSetter, value);
       } else {
         runOnRuntimeSyncFromId(hostId, setWithValue, value);
       }
     };
-    shareableRef.isHost = false;
+    shareableGuest.isHost = false;
+    shareableGuest.__shareableRef = true;
     if (guestDecorator) {
-      shareableRef = guestDecorator(shareableRef);
+      shareableGuest = guestDecorator(shareableGuest);
     }
-    memoize(shareableRef, shareableRef);
-    return shareableRef;
+    memoize(shareableGuest, shareableRef);
+    return shareableGuest;
   }
   globalThis.__shareableGuestUnpacker = shareableGuestUnpacker;
 })();)DELIMITER__";

@@ -18,32 +18,44 @@ import type {
  * @deprecated Only UI host runtime is supported now. Use 'UI' as the
  *   hostRuntime argument.
  */
-export function createShareable<TShared = unknown>(
+export function createShareable<
+  TValue = unknown,
+  THostDecorated = unknown,
+  TGuestDecorated = unknown,
+>(
   hostRuntime: WorkletRuntime,
-  initial: SerializableRef<TShared>,
+  initial: SerializableRef<TValue>,
   config?: {
-    hostDecorator?: ShareableHostDecorator;
-    guestDecorator?: ShareableGuestDecorator;
+    hostDecorator?: ShareableHostDecorator<TValue, THostDecorated>;
+    guestDecorator?: ShareableGuestDecorator<TValue, TGuestDecorated>;
   }
-): Shareable<TShared>;
+): Shareable<TValue, THostDecorated, TGuestDecorated>;
 
-export function createShareable<TShared = unknown>(
+export function createShareable<
+  TValue = unknown,
+  THostDecorated = unknown,
+  TGuestDecorated = unknown,
+>(
   hostRuntime: 'UI',
-  initial: TShared,
+  initial: TValue,
   config?: {
-    hostDecorator?: ShareableHostDecorator;
-    guestDecorator?: ShareableGuestDecorator;
+    hostDecorator?: ShareableHostDecorator<TValue, THostDecorated>;
+    guestDecorator?: ShareableGuestDecorator<TValue, TGuestDecorated>;
   }
-): Shareable<TShared>;
+): Shareable<TValue, THostDecorated, TGuestDecorated>;
 
-export function createShareable<TShared = unknown>(
+export function createShareable<
+  TValue = unknown,
+  THostDecorated = unknown,
+  TGuestDecorated = unknown,
+>(
   hostRuntime: WorkletRuntime | 'UI',
-  initial: TShared,
+  initial: TValue,
   config?: {
-    hostDecorator?: ShareableHostDecorator;
-    guestDecorator?: ShareableGuestDecorator;
+    hostDecorator?: ShareableHostDecorator<TValue, THostDecorated>;
+    guestDecorator?: ShareableGuestDecorator<TValue, TGuestDecorated>;
   }
-): Shareable<TShared> {
+): Shareable<TValue, THostDecorated, TGuestDecorated> {
   let actualHostRuntime: WorkletRuntime;
   if (hostRuntime === 'UI') {
     actualHostRuntime = getUIWorkletRuntime();
@@ -67,15 +79,8 @@ export function createShareable<TShared = unknown>(
   );
 
   if (getRuntimeKind() === RuntimeKind.UI) {
-    return globalThis.__shareableHostUnpacker(
-      initial,
-      hostDecorator
-    ) as unknown as Shareable<TShared>;
+    return globalThis.__shareableHostUnpacker(initial, hostDecorator);
   } else {
-    return globalThis.__shareableGuestUnpacker(
-      1,
-      shareableRef,
-      guestDecorator
-    ) as unknown as Shareable<TShared>;
+    return globalThis.__shareableGuestUnpacker(1, shareableRef, guestDecorator);
   }
 }

@@ -72,6 +72,7 @@ export interface PluginOptions {
    */
   globals?: string[];
 
+  /** Temporary internal option to create ShareableUnpacker. */
   limitInitDataHoisting?: boolean;
 
   /**

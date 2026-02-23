@@ -3,6 +3,10 @@ import { runOnUISync } from 'react-native-worklets';
 
 import { describe, expect, test } from '../../ReJest/RuntimeTestsApi';
 
+declare global {
+  var _WORKLETS_BUNDLE_MODE_ENABLED: boolean | undefined;
+}
+
 describe('Test createSerializableOnUI', () => {
   test('createSerializableOnUIString', () => {
     // Arrange & Act
@@ -91,7 +95,7 @@ describe('Test createSerializableOnUI', () => {
   test('createSerializableOnUIHostObject', () => {
     // Arrange & Act
     // Prototype of TurboModule is a host object
-    const hostObject = Object.getPrototypeOf(TurboModuleRegistry.get('Clipboard'));
+    const hostObject = Object.getPrototypeOf(TurboModuleRegistry.get('Clipboard')) as Record<string, unknown>;
     const hostObjectKeys = Object.keys(hostObject);
     const hostObjectValue = runOnUISync(() => {
       'worklet';
@@ -127,7 +131,7 @@ describe('Test createSerializableOnUI', () => {
     uint8Array[2] = 3;
 
     // Act
-    const arrayValue: any[] = runOnUISync(() => {
+    const arrayValue = runOnUISync(() => {
       'worklet';
       return [
         // number
@@ -155,7 +159,7 @@ describe('Test createSerializableOnUI', () => {
         /a/,
         // array buffer
         arrayBuffer,
-      ];
+      ] as const;
     });
 
     // Assert
@@ -177,7 +181,10 @@ describe('Test createSerializableOnUI', () => {
     expect(typeof arrayValue[index.object]).toBe('object');
     expect(arrayValue[index.object].a).toBe(1);
     // remote function
-    expect(typeof arrayValue[index.remoteFunction]).toBe('object');
+
+    expect(typeof arrayValue[index.remoteFunction]).toBe(
+      globalThis._WORKLETS_BUNDLE_MODE_ENABLED ? 'function' : 'object',
+    );
     // array
     expect(arrayValue[index.array].length).toBe(1);
     expect(arrayValue[index.array][0]).toBe(1);
@@ -292,7 +299,7 @@ describe('Test createSerializableOnUI', () => {
     expect(typeof obj[key.object]).toBe('object');
     expect(obj[key.object].f).toBe(4);
     expect(obj[key.object].g).toBe('test');
-    expect(typeof obj[key.remoteFunction]).toBe('object');
+    expect(typeof obj[key.remoteFunction]).toBe(globalThis._WORKLETS_BUNDLE_MODE_ENABLED ? 'function' : 'object');
     expect(obj[key.array].length).toBe(1);
     expect(obj[key.array][0]).toBe(1);
     expect(typeof obj[key.initializer]).toBe('object');
@@ -408,14 +415,17 @@ describe('Test createSerializableOnUI', () => {
 
   test('createSerializableOnUIInaccessibleObject', async () => {
     // Arrange
-    const set = runOnUISync(() => {
+    const clazz = runOnUISync(() => {
       'worklet';
-      return new Set();
+      class Clazz {
+        method() {}
+      }
+      return new Clazz();
     });
 
     // Act & Assert
     await expect(() => {
-      set.has(42);
+      clazz.method();
     }).toThrow();
   });
 

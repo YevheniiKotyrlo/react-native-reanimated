@@ -53,13 +53,6 @@ function exportToCpp(sourceFilePath, outputFilename) {
     'Transformation failed or AST not generated.'
   );
 
-  // const code = generate(transformed.ast, {
-  //   comments: false,
-  //   compact: false,
-  // }).code;
-
-  // console.log(code);
-
   let unpackerBody;
 
   traverse(transformed.ast, {
